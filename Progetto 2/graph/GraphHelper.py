@@ -26,9 +26,9 @@ class GraphHelper:
         """
         graph = Graph()
 
-        for i in range(3,6):
+        for i in range(4,7):
             graph.addNode(i)
-        for i in range(0,3):
+        for i in range(1,4):
             graph.addNode(i)
 
         graph.insertEdge(1, 0, 1)
@@ -56,10 +56,10 @@ if __name__ == "__main__":
 
     print([str(i) for i in edges])
 
-    print("Generic Search:"), graph.genericSearch(0)
+    print("\nGeneric Search:"), graph.genericSearch(0)
 
-    print("D-Heap Search:"), graph.dPrioritySearch(0, 2, 5)
+    print("\nD-Heap Search:"), graph.dPrioritySearch(0, 4, 5)
 
-    print("Binary Heap Search:"), graph.binaryPrioritySearch(0, 2)
+    print("\nBinary Heap Search:"), graph.binaryPrioritySearch(0, 4)
 
-    print("Binomial Heap Search:"), graph.binomialPrioritySearch(0, 2)
+    print("\nBinomial Heap Search:"), graph.binomialPrioritySearch(0, 4)

@@ -273,18 +273,23 @@ class GraphBase(ABC):
         :param rootId: the root node ID (integer).
         :return: the exploration d-heap.
         """
-        if rootId not in self.nodes:
+        if rootId not in self.nodes or self.getNode(rootId).value != rootValue:
+            print("Root node not found")
             return None
 
-        treeNode = DHeapNode(rootId, rootValue, 0)
         tree = PQ_DHeap(d)
-        vertexSet = [treeNode]  # nodes to explore
+        tree.insert(rootId, rootValue)
+        vertexSet = PQ_DHeap(d)  # nodes to explore
+        vertexSet.insert(rootId, rootValue)
         markedNodes = [rootId]  # nodes already explored
         index = 0
 
-        while len(vertexSet) > 0:  # while there are nodes to explore ...
-            treeNode = vertexSet.pop()  # get an unexplored node
-            adjacentNodes = self.getAdj(treeNode.elem)
+        while vertexSet.length > 0:  # while there are nodes to explore ...
+            treeNode = vertexSet.findMax()  # get an unexplored node
+            vertexSet.print()
+            print(treeNode)
+            vertexSet.deleteMax()
+            adjacentNodes = self.getAdj(treeNode)
             adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
@@ -292,11 +297,14 @@ class GraphBase(ABC):
                     value = node.value
                     adjacentValue = value
                     newTreeNode = DHeapNode(nodeIndex, adjacentValue, index)
-                    tree.heap.append(newTreeNode)
-                    vertexSet.append(newTreeNode)
+                    tree.insert(nodeIndex, adjacentValue)
+                    vertexSet.insert(newTreeNode.elem, newTreeNode.key)
                     markedNodes.append(nodeIndex)  # mark as explored
-        print("Nodi Visitati:", markedNodes)
+                    index = index + 1
+
+        print(markedNodes)
         return tree
+
 
     def binaryPrioritySearch(self, rootId, rootValue, index = 0):
         """
@@ -304,29 +312,27 @@ class GraphBase(ABC):
         :param rootId: the root node ID (integer).
         :return: the exploration d-heap.
         """
-        if rootId not in self.nodes:
+        if rootId not in self.nodes or self.getNode(rootId).value != rootValue:
+            print("Root node not found")
             return None
 
-        treeNode = BinaryHeapNode(rootId, rootValue, 0)
-        tree = PQbinaryHeap()
-        vertexSet = [treeNode]  # nodes to explore
+        vertex = rootId
+        vertexSet = [vertex]  # nodes to explore
         markedNodes = [rootId]  # nodes already explored
 
         while len(vertexSet) > 0:  # while there are nodes to explore ...
-            treeNode = vertexSet.pop()  # get an unexplored node
-            adjacentNodes = self.getAdj(treeNode.elem)
+            vertex = vertexSet.pop()  # get an unexplored node
+            adjacentNodes = self.getAdj(vertex)
             adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
                     value = node.value
                     adjacentValue = value
-                    newTreeNode = BinaryHeapNode(nodeIndex, adjacentValue, index)
-                    tree.heap.append(newTreeNode)
-                    vertexSet.append(newTreeNode)
+                    newVertex = nodeIndex
+                    vertexSet.append(newVertex)
                     markedNodes.append(nodeIndex)  # mark as explored
-        print("Nodi Visitati:", markedNodes)
-        return tree
+        print(markedNodes)
 
     def binomialPrioritySearch(self, rootId, rootValue, index = 0):
         """
@@ -334,29 +340,27 @@ class GraphBase(ABC):
         :param rootId: the root node ID (integer).
         :return: the exploration d-heap.
         """
-        if rootId not in self.nodes:
+        if rootId not in self.nodes or self.getNode(rootId).value != rootValue:
+            print("Root node not found")
             return None
 
-        treeNode = BinomialHeapNode(rootId, rootValue)
-        tree = PQbinomialHeap()
-        vertexSet = [treeNode]  # nodes to explore
+        vertex = rootId
+        vertexSet = [vertex]  # nodes to explore
         markedNodes = [rootId]  # nodes already explored
 
         while len(vertexSet) > 0:  # while there are nodes to explore ...
-            treeNode = vertexSet.pop()  # get an unexplored node
-            adjacentNodes = self.getAdj(treeNode.elem)
+            vertex = vertexSet.pop()  # get an unexplored node
+            adjacentNodes = self.getAdj(vertex)
             adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
                     value = node.value
                     adjacentValue = value
-                    newTreeNode = BinomialHeapNode(nodeIndex, adjacentValue)
-                    tree.heap.append(newTreeNode)
-                    vertexSet.append(newTreeNode)
+                    newVertex = nodeIndex
+                    vertexSet.append(newVertex)
                     markedNodes.append(nodeIndex)  # mark as explored
-        print("Nodi Visitati:", markedNodes)
-        return tree
+        print(markedNodes)
 
     def bfs(self, rootId):
         """

@@ -22,19 +22,19 @@ class PQ_DHeap:
         self.heap = []                      # lista di DHeapNode
         self.length = 0
 
-    def minSon(self, node):
+    def maxSon(self, node):
         index = self.heap.index(node)
-        minSon = None
-        minKey = float('inf')               # qualsiasi elemento avra' valore inferiore
+        maxSon = None
+        maxKey = float('-inf')              # qualsiasi elemento avra' valore superiore
         for s in range(1, self.d + 1):      # iterazione sui figli del nodo
             sindex = self.d * index + s     # indice del figlio s-esimo
             if sindex > self.length - 1:    # fuori dal limite della lista
-                break                       # return minSon
+                break                       # return maxSon
             son = self.heap[sindex]
-            if son.key < minKey:
-                minKey = son.key
-                minSon = son
-        return minSon
+            if son.key > maxKey:
+                maxKey = son.key
+                maxSon = son
+        return maxSon
 
     def swap(self, node1, node2):
         self.heap[node1.index] = node2
@@ -45,22 +45,22 @@ class PQ_DHeap:
         if son.index <= 0:
             return
         father = self.heap[(son.index - 1) // self.d]
-        while son.index > 0 and son.key < father.key:
+        while son.index > 0 and son.key > father.key:
             self.swap(son, father)
             father = self.heap[(son.index - 1) // self.d]  # padre del padre
 
     def moveDown(self, father):
-        son = self.minSon(father)
-        while son != None and son.key < father.key:
+        son = self.maxSon(father)
+        while son != None and son.key > father.key:
             self.swap(father, son)
-            son = self.minSon(father)  # figlio(minore) del figlio
+            son = self.maxSon(father)  # figlio (maggiore) del figlio
 
     def isEmpty(self):
         if self.length == 0:
             return True
         return False
 
-    def findMin(self):
+    def findMax(self):
         if self.isEmpty():
             return None
         return self.heap[0].elem
@@ -75,7 +75,7 @@ class PQ_DHeap:
         self.moveUp(n)
         return n
 
-    def deleteMin(self):
+    def deleteMax(self):
         if self.length == 0:
             return
         first = self.heap[0]
@@ -85,11 +85,11 @@ class PQ_DHeap:
         self.moveDown(last)  # last ha indice di first!
         # del self.heap[self.length]
 
-    def decreaseKey(self, node, nKey):
+    def increaseKey(self, node, nKey):
         node.key = nKey
-        self.moveUp(node)
+        self.moveDown(node)
 
-    def stampa(self):
+    def print(self):
         s = ""
         for i in range(self.length):
             n = self.heap[i]
@@ -106,63 +106,63 @@ def main():
     k = 2.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
-    print("findMin():", pq.findMin())
+    pq.print()
+    print("findMax():", pq.findMax())
 
     e = 2.0
     k = 1.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
-    print("findMin():", pq.findMin())
+    pq.print()
+    print("findMax():", pq.findMax())
 
     e = 8.0
     k = 4.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
-    print("findMin():", pq.findMin())
+    pq.print()
+    print("findMax():", pq.findMax())
 
     e = 10.0
     k = 5.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
-    print("findMin():", pq.findMin())
+    pq.print()
+    print("findMax():", pq.findMax())
 
     e = 6.0
     k = 3.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
-    print("findMin():", pq.findMin())
+    pq.print()
+    print("findMax():", pq.findMax())
 
-    print("deleteMin()")
-    pq.deleteMin()
-    pq.stampa()
-    print("findMin():", pq.findMin())
+    print("deleteMax()")
+    pq.deleteMax()
+    pq.print()
+    print("findMax():", pq.findMax())
 
     e = 12.0
     k = 6.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
 
     e = 14.0
     k = 7.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
 
     e = 16.0
     k = 8.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
 
-    print("deleteMin()")
-    pq.deleteMin()
-    pq.stampa()
+    print("deleteMax()")
+    pq.deleteMax()
+    pq.print()
 
 
 if __name__ == "__main__":
