@@ -26,15 +26,23 @@ class GraphHelper:
         """
         graph = Graph()
 
-        nodes = []
-        for i in range(num_nodes):
-            nodes.append(graph.addNode(i * 2))
+        for i in range(3,6):
+            graph.addNode(i)
+        for i in range(0,3):
+            graph.addNode(i)
 
-        for src in nodes:
-            for dst in nodes:
-                if dst.id > src.id:
-                    graph.insertEdge(src.id, dst.id, num_nodes - src.id)
-                    graph.insertEdge(dst.id, src.id, num_nodes - src.id)
+        graph.insertEdge(1, 0, 1)
+        graph.insertEdge(0, 1, 1)
+        graph.insertEdge(1, 3, 2)
+        graph.insertEdge(3, 1, 2)
+        graph.insertEdge(2, 4, 2)
+        graph.insertEdge(4, 2, 2)
+        graph.insertEdge(3, 4, 1)
+        graph.insertEdge(4, 3, 1)
+        graph.insertEdge(4, 5, 1)
+        graph.insertEdge(5, 4, 1)
+        graph.insertEdge(2, 5, 3)
+        graph.insertEdge(5, 2, 3)
 
         return graph
 
@@ -50,7 +58,7 @@ if __name__ == "__main__":
 
     print("Generic Search:"), graph.genericSearch(0)
 
-    print("D-Heap Search:"), graph.dPrioritySearch(0, 2, 3)
+    print("D-Heap Search:"), graph.dPrioritySearch(0, 2, 5)
 
     print("Binary Heap Search:"), graph.binaryPrioritySearch(0, 2)
 

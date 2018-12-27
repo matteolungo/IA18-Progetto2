@@ -278,26 +278,23 @@ class GraphBase(ABC):
 
         treeNode = DHeapNode(rootId, rootValue, 0)
         tree = PQ_DHeap(d)
-        vertexSet = {treeNode}  # nodes to explore
-        markedNodes = {rootId}  # nodes already explored
+        vertexSet = [treeNode]  # nodes to explore
+        markedNodes = [rootId]  # nodes already explored
         index = 0
 
         while len(vertexSet) > 0:  # while there are nodes to explore ...
             treeNode = vertexSet.pop()  # get an unexplored node
             adjacentNodes = self.getAdj(treeNode.elem)
-            adjacentValues = []
-            for nodeIndex in adjacentNodes :
-                node = self.getNode(nodeIndex)
-                value = node.value
-                adjacentValues.append(value)
+            adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
-                    newTreeNode = BinaryHeapNode(nodeIndex, adjacentValues[index], index)
+                    node = self.getNode(nodeIndex)
+                    value = node.value
+                    adjacentValue = value
+                    newTreeNode = DHeapNode(nodeIndex, adjacentValue, index)
                     tree.heap.append(newTreeNode)
-                    vertexSet.add(newTreeNode)
-                    markedNodes.add(nodeIndex)  # mark as explored
-                index = index + 1
-
+                    vertexSet.append(newTreeNode)
+                    markedNodes.append(nodeIndex)  # mark as explored
         print("Nodi Visitati:", markedNodes)
         return tree
 
@@ -312,25 +309,22 @@ class GraphBase(ABC):
 
         treeNode = BinaryHeapNode(rootId, rootValue, 0)
         tree = PQbinaryHeap()
-        vertexSet = {treeNode}  # nodes to explore
-        markedNodes = {rootId}  # nodes already explored
+        vertexSet = [treeNode]  # nodes to explore
+        markedNodes = [rootId]  # nodes already explored
 
         while len(vertexSet) > 0:  # while there are nodes to explore ...
             treeNode = vertexSet.pop()  # get an unexplored node
             adjacentNodes = self.getAdj(treeNode.elem)
-            adjacentValues = []
-            for nodeIndex in adjacentNodes :
-                node = self.getNode(nodeIndex)
-                value = node.value
-                adjacentValues.append(value)
+            adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
-                    newTreeNode = BinaryHeapNode(nodeIndex, adjacentValues[index], index)
+                    node = self.getNode(nodeIndex)
+                    value = node.value
+                    adjacentValue = value
+                    newTreeNode = BinaryHeapNode(nodeIndex, adjacentValue, index)
                     tree.heap.append(newTreeNode)
-                    vertexSet.add(newTreeNode)
-                    markedNodes.add(nodeIndex)  # mark as explored
-                index = index + 1
-
+                    vertexSet.append(newTreeNode)
+                    markedNodes.append(nodeIndex)  # mark as explored
         print("Nodi Visitati:", markedNodes)
         return tree
 
@@ -345,26 +339,23 @@ class GraphBase(ABC):
 
         treeNode = BinomialHeapNode(rootId, rootValue)
         tree = PQbinomialHeap()
-        vertexSet = {treeNode}  # nodes to explore
-        markedNodes = {rootId}  # nodes already explored
+        vertexSet = [treeNode]  # nodes to explore
+        markedNodes = [rootId]  # nodes already explored
 
         while len(vertexSet) > 0:  # while there are nodes to explore ...
             treeNode = vertexSet.pop()  # get an unexplored node
             adjacentNodes = self.getAdj(treeNode.elem)
-            adjacentValues = []
-            for nodeIndex in adjacentNodes:
-                node = self.getNode(nodeIndex)
-                value = node.value
-                adjacentValues.append(value)
+            adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
-                    newTreeNode = BinomialHeapNode(nodeIndex, adjacentValues[index])
-                    newTreeNode.father = treeNode
-                    treeNode.sons.addAsLast(newTreeNode)
-                    vertexSet.add(newTreeNode)
-                    markedNodes.add(nodeIndex)  # mark as explored
-
-        print("Nodi visitati:", markedNodes)
+                    node = self.getNode(nodeIndex)
+                    value = node.value
+                    adjacentValue = value
+                    newTreeNode = BinomialHeapNode(nodeIndex, adjacentValue)
+                    tree.heap.append(newTreeNode)
+                    vertexSet.append(newTreeNode)
+                    markedNodes.append(nodeIndex)  # mark as explored
+        print("Nodi Visitati:", markedNodes)
         return tree
 
     def bfs(self, rootId):
