@@ -245,7 +245,9 @@ class GraphBase(ABC):
         :param rootId: the root node ID (integer).
         :return: the generic exploration tree.
         """
+
         if rootId not in self.nodes:
+            print("Root node not found")
             return None
 
         treeNode = TreeNode(rootId)
@@ -264,16 +266,18 @@ class GraphBase(ABC):
                     vertexSet.add(newTreeNode)
                     markedNodes.add(nodeIndex)  # mark as explored
 
-        print("Nodi Visitati:", markedNodes)
+        print(markedNodes)
         return tree
 
-    def dPrioritySearch(self, rootId, rootValue, d):
+    def dHeapPrioritySearch(self, rootId, d):
         """
         Execute a search in the graph using a d-heap, starting from the specified node.
         :param rootId: the root node ID (integer).
         :return: the exploration d-heap.
         """
-        if rootId not in self.nodes or self.getNode(rootId).value != rootValue:
+        rootValue = self.getNode(rootId).value
+
+        if rootId not in self.nodes:
             print("Root node not found")
             return None
 
@@ -282,85 +286,56 @@ class GraphBase(ABC):
         vertexSet = PQ_DHeap(d)  # nodes to explore
         vertexSet.insert(rootId, rootValue)
         markedNodes = [rootId]  # nodes already explored
-        index = 0
 
         while vertexSet.length > 0:  # while there are nodes to explore ...
             treeNode = vertexSet.findMax()  # get an unexplored node
-            vertexSet.print()
-            print(treeNode)
             vertexSet.deleteMax()
             adjacentNodes = self.getAdj(treeNode)
-            adjacentValue = 0
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
                     value = node.value
                     adjacentValue = value
-                    newTreeNode = DHeapNode(nodeIndex, adjacentValue, index)
                     tree.insert(nodeIndex, adjacentValue)
-                    vertexSet.insert(newTreeNode.elem, newTreeNode.key)
+                    vertexSet.insert(nodeIndex, adjacentValue)
                     markedNodes.append(nodeIndex)  # mark as explored
-                    index = index + 1
 
         print(markedNodes)
         return tree
 
-
-    def binaryPrioritySearch(self, rootId, rootValue, index = 0):
+    def binomialPrioritySearch(self, rootId):
         """
-        Execute a search in the graph using a d-heap, starting from the specified node.
+        Execute a search in the graph using a binomial heap, starting from the specified node.
         :param rootId: the root node ID (integer).
-        :return: the exploration d-heap.
+        :return: the exploration binomial heap.
         """
-        if rootId not in self.nodes or self.getNode(rootId).value != rootValue:
+        rootValue = self.getNode(rootId).value
+
+        if rootId not in self.nodes:
             print("Root node not found")
             return None
 
-        vertex = rootId
-        vertexSet = [vertex]  # nodes to explore
+        tree = PQbinomialHeap()
+        tree.insert(rootId, rootValue)
+        vertexSet = PQbinomialHeap()  # nodes to explore
+        vertexSet.insert(rootId, rootValue)
         markedNodes = [rootId]  # nodes already explored
 
-        while len(vertexSet) > 0:  # while there are nodes to explore ...
-            vertex = vertexSet.pop()  # get an unexplored node
-            adjacentNodes = self.getAdj(vertex)
-            adjacentValue = 0
+        while vertexSet.lenght() > 0:  # while there are nodes to explore ...
+            treeNode = vertexSet.findMax()  # get an unexplored node
+            vertexSet.deleteMax()
+            adjacentNodes = self.getAdj(treeNode)
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
                     value = node.value
                     adjacentValue = value
-                    newVertex = nodeIndex
-                    vertexSet.append(newVertex)
+                    tree.insert(nodeIndex, adjacentValue)
+                    vertexSet.insert(nodeIndex, adjacentValue)
                     markedNodes.append(nodeIndex)  # mark as explored
+
         print(markedNodes)
-
-    def binomialPrioritySearch(self, rootId, rootValue, index = 0):
-        """
-        Execute a search in the graph using a d-heap, starting from the specified node.
-        :param rootId: the root node ID (integer).
-        :return: the exploration d-heap.
-        """
-        if rootId not in self.nodes or self.getNode(rootId).value != rootValue:
-            print("Root node not found")
-            return None
-
-        vertex = rootId
-        vertexSet = [vertex]  # nodes to explore
-        markedNodes = [rootId]  # nodes already explored
-
-        while len(vertexSet) > 0:  # while there are nodes to explore ...
-            vertex = vertexSet.pop()  # get an unexplored node
-            adjacentNodes = self.getAdj(vertex)
-            adjacentValue = 0
-            for nodeIndex in adjacentNodes:
-                if nodeIndex not in markedNodes:  # if not explored ...
-                    node = self.getNode(nodeIndex)
-                    value = node.value
-                    adjacentValue = value
-                    newVertex = nodeIndex
-                    vertexSet.append(newVertex)
-                    markedNodes.append(nodeIndex)  # mark as explored
-        print(markedNodes)
+        return tree
 
     def bfs(self, rootId):
         """

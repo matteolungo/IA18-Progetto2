@@ -58,8 +58,8 @@ if __name__ == "__main__":
 
     print("\nGeneric Search:"), graph.genericSearch(0)
 
-    print("\nD-Heap Search:"), graph.dPrioritySearch(0, 4, 5)
+    print("\nBinary Heap Search:"), graph.dHeapPrioritySearch(0, 2)
 
-    print("\nBinary Heap Search:"), graph.binaryPrioritySearch(0, 4)
+    print("\n5-Heap Search:"), graph.dHeapPrioritySearch(0, 5)
 
-    print("\nBinomial Heap Search:"), graph.binomialPrioritySearch(0, 4)
+    print("\nBinomial Heap Search:"), graph.binomialPrioritySearch(0)

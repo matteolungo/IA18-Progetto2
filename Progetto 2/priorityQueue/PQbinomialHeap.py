@@ -54,7 +54,7 @@ class BinomialHeap:
             curr = curr.next
         return res
 
-    def stampa(self):
+    def print(self):
         """BFS"""
         q = queue()
         # Attenzione verra' inserito 'None' come padre della radice.
@@ -78,7 +78,7 @@ class PQbinomialHeap:
     MAXSIZE = 32  # albero di dimensione maggiore sara' B31
 
     def __init__(self):
-        self.heap = PQbinomialHeap.MAXSIZE * [None]  # array che mantiene lista di BinamialHeap4
+        self.heap = PQbinomialHeap.MAXSIZE * [None]  # array che mantiene lista di BinomialHeap
 
         # Durante la ristrutturazione ho al massimo
         # 3 alberi per iterazione della stessa dimensione
@@ -86,7 +86,8 @@ class PQbinomialHeap:
             self.heap[i] = [None, None, None]
 
     def rebuild(self):
-        """Ristruttura la foresta di alberi binomiali.
+        """
+        Ristruttura la foresta di alberi binomiali.
 
         Verra' ripristinata la proprieta' di unicita'.
         """
@@ -136,38 +137,38 @@ class PQbinomialHeap:
             self.rebuild()
         return root
 
-    def findMinIndex(self):
-        """Restituisce l'indice dell'heap la cui radice ha chiave minima."""
-        minKeyIndex = -1  # valore di default per indicare errore
+    def findMaxIndex(self):
+        """Restituisce l'indice dell'heap la cui radice ha chiave massima."""
+        maxKeyIndex = -1  # valore di default per indicare errore
         if self.isEmpty():
-            return minKeyIndex
+            return maxKeyIndex
 
         # Trova la posizione del primo heap non vuoto.
         startIndex = 0
         for i in range(PQbinomialHeap.MAXSIZE):
             if self.heap[i][0] != None:
-                startIndex = minKeyIndex = i
+                startIndex = maxKeyIndex = i
                 break
 
-        # Trova l'indice del heap con radice a chiave minima.
+        # Trova l'indice dell'heap con radice a chiave massima.
         for i in range(startIndex + 1, PQbinomialHeap.MAXSIZE):
             if self.heap[i][0] != None and \
-                            self.heap[i][0].root.key < self.heap[minKeyIndex][0].root.key:
-                minKeyIndex = i
-        return minKeyIndex
+                    self.heap[i][0].root.key > self.heap[maxKeyIndex][0].root.key:
+                maxKeyIndex = i
+        return maxKeyIndex
 
-    def findMin(self):
+    def findMax(self):
         """Restituisce la radice dell'heap con chiave minima."""
         if self.isEmpty():
             return None
-        return self.heap[self.findMinIndex()][0].root.elem
+        return self.heap[self.findMaxIndex()][0].root.elem
 
-    def deleteMin(self):
+    def deleteMax(self):
 
         if self.isEmpty():
             return
 
-        index = self.findMinIndex()
+        index = self.findMaxIndex()
         nuovi = self.heap[index][0].getHeapSons()  # Prendi i figli del B-index
 
         self.heap[index][0] = None  # elimino il minimo
@@ -184,11 +185,19 @@ class PQbinomialHeap:
 
         self.rebuild()
 
-    def stampa(self):
+    def lenght(self):
+        lenght = 0
+        for i in self.heap:
+            for j in i:
+                if j is not None:
+                    lenght += 1
+        return lenght
+
+    def print(self):
         for i in range(len(self.heap)):
             if self.heap[i][0] is not None:
                 print("B_" + str(i))
-                self.heap[i][0].stampa()
+                self.heap[i][0].print()
 
 
 def main():
@@ -200,40 +209,40 @@ def main():
     k = 2.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
     print("findMin():", pq.findMin())
 
     e = 2.0
     k = 1.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
     print("findMin():", pq.findMin())
 
     e = 8.0
     k = 4.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
     print("findMin():", pq.findMin())
 
     e = 10.0
     k = 5.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
     print("findMin():", pq.findMin())
 
     e = 6.0
     k = 3.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
     print("findMin():", pq.findMin())
 
     print("deleteMin()")
     pq.deleteMin()
-    pq.stampa()
+    pq.print()
     print("findMin():", pq.findMin())
 
     e = 12.0
@@ -251,7 +260,7 @@ def main():
 
     print("deleteMin()")
     pq.deleteMin()
-    pq.stampa()
+    pq.print()
 
     e = 4.0
     k = 2.0
@@ -261,7 +270,7 @@ def main():
     k = 1.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
-    pq.stampa()
+    pq.print()
 
 
 if __name__ == "__main__":
