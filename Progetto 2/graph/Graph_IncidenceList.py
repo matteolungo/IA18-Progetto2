@@ -23,7 +23,7 @@ class GraphIncidenceList(GraphBase):
         Return the number of edges.
         :return: the number of edges.
         """
-        return sum(len(adj_list) for adj_list in self.inc.values())
+        return int(sum(len(adj_list) for adj_list in self.inc.values()) /2)
 
     def addNode(self, elem):
         """
@@ -92,6 +92,7 @@ class GraphIncidenceList(GraphBase):
         # if tail and head exist, add the entry into the incidence list
         if head in self.nodes and tail in self.nodes:  # TODO overwrite if edge already exists
             self.inc[tail].addAsLast(Edge(tail, head, weight))
+            self.inc[head].addAsLast(Edge(head, tail, weight))
 
     def deleteEdge(self, tail, head):
         """

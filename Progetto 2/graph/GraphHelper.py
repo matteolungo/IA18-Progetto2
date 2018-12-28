@@ -1,4 +1,5 @@
 from graph.Graph_IncidenceList import GraphIncidenceList as Graph
+from random import randint, choice
 
 
 class GraphHelper:
@@ -18,37 +19,36 @@ class GraphHelper:
         return l
 
     @staticmethod
-    def buildGraph(num_nodes):
+    def buildGraph(num_nodes, num_edges):
         """
         Build a sample complete graph.
         :param num_nodes number of nodes.
         :return: a sample complete graph.
         """
-        graph = Graph()
+        if num_edges >= num_nodes:
+            graph = Graph()
 
-        for i in range(4,7):
-            graph.addNode(i)
-        for i in range(1,4):
-            graph.addNode(i)
+            nodes = []
+            for i in range(num_nodes):
+                nodes.append(graph.addNode(randint(1, 1000000)))
 
-        graph.insertEdge(1, 0, 1)
-        graph.insertEdge(0, 1, 1)
-        graph.insertEdge(1, 3, 2)
-        graph.insertEdge(3, 1, 2)
-        graph.insertEdge(2, 4, 2)
-        graph.insertEdge(4, 2, 2)
-        graph.insertEdge(3, 4, 1)
-        graph.insertEdge(4, 3, 1)
-        graph.insertEdge(4, 5, 1)
-        graph.insertEdge(5, 4, 1)
-        graph.insertEdge(2, 5, 3)
-        graph.insertEdge(5, 2, 3)
+            for i in range(len(nodes) - 1):
+                graph.insertEdge(i, randint(i + 1, len(nodes) - 1), randint(1, 10))
+            graph.insertEdge(len(nodes) - 1, randint(0, len(nodes) - 2))
 
-        return graph
+            while graph.numEdges() < (num_edges):
+                i = choice(graph.nodes).id
+                j = choice(graph.nodes).id
+                if not i == j:
+                    graph.insertEdge(i, j, randint(1, 10))
+
+            return graph
+        print("Numero di archi inferiore al numero di nodi")
+        return
 
 
 if __name__ == "__main__":
-    graph = GraphHelper.buildGraph(5)
+    graph = GraphHelper.buildGraph(5, 5)
 
     graph.print()
 
