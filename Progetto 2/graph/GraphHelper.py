@@ -30,11 +30,11 @@ class GraphHelper:
 
             nodes = []
             for i in range(num_nodes):
-                nodes.append(graph.addNode(randint(1, 1000000)))
+                nodes.append(graph.addNode(randint(1, 100000), randint(1, 100000)))
 
             for i in range(len(nodes) - 1):
                 graph.insertEdge(i, randint(i + 1, len(nodes) - 1), randint(1, 10))
-            graph.insertEdge(len(nodes) - 1, randint(0, len(nodes) - 2))
+            graph.insertEdge(len(nodes) - 1, randint(0, len(nodes) - 2), randint(1, 10))
 
             while graph.numEdges() < (num_edges):
                 i = choice(graph.nodes).id

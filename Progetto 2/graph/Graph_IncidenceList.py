@@ -25,13 +25,13 @@ class GraphIncidenceList(GraphBase):
         """
         return int(sum(len(adj_list) for adj_list in self.inc.values()) /2)
 
-    def addNode(self, elem):
+    def addNode(self, elem, weight):
         """
         Add a new node with the specified value.
         :param elem: the node value.
         :return: the create node.
         """
-        newnode = super().addNode(elem)  # create a new node with the correct ID
+        newnode = super().addNode(elem, weight)  # create a new node with the correct ID
 
         self.nodes[newnode.id] = newnode  # add the new node to the dictionary
         self.inc[newnode.id] = List()  # create the incidence list for the new node
@@ -205,7 +205,7 @@ if __name__ == "__main__":
     # add nodes
     nodes = []
     for i in range(3):
-        node = graph.addNode(i)
+        node = graph.addNode(i, i * 2)
         print("Node inserted:", node)
         nodes.append(node)
 

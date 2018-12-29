@@ -14,7 +14,7 @@ class Node:
     The graph basic element: node.
     """
 
-    def __init__(self, id, value):
+    def __init__(self, id, value, weight):
         """
         Constructor.
         :param id: node ID (integer).
@@ -22,6 +22,7 @@ class Node:
         """
         self.id = id
         self.value = value
+        self. weight = weight
 
     def __eq__(self, other):
         """
@@ -136,13 +137,13 @@ class GraphBase(ABC):
         ...
 
     @abstractmethod
-    def addNode(self, elem):
+    def addNode(self, elem, weight):
         """
         Add a new node with the specified value.
         :param elem: the node value.
         :return: the create node.
         """
-        newNode = Node(self.nextId, elem)
+        newNode = Node(self.nextId, elem, weight)
         self.nextId += 1
         return newNode
 
@@ -275,16 +276,16 @@ class GraphBase(ABC):
         :param rootId: the root node ID (integer).
         :return: the exploration d-heap.
         """
-        rootValue = self.getNode(rootId).value
+        rootWeight = self.getNode(rootId).weight
 
         if rootId not in self.nodes:
             print("Root node not found")
             return None
 
         tree = PQ_DHeap(d)
-        tree.insert(rootId, rootValue)
+        tree.insert(rootId, rootWeight)
         vertexSet = PQ_DHeap(d)  # nodes to explore
-        vertexSet.insert(rootId, rootValue)
+        vertexSet.insert(rootId, rootWeight)
         markedNodes = [rootId]  # nodes already explored
 
         while vertexSet.length > 0:  # while there are nodes to explore ...
@@ -309,16 +310,16 @@ class GraphBase(ABC):
         :param rootId: the root node ID (integer).
         :return: the exploration binomial heap.
         """
-        rootValue = self.getNode(rootId).value
+        rootWeight = self.getNode(rootId).value
 
         if rootId not in self.nodes:
             print("Root node not found")
             return None
 
         tree = PQbinomialHeap()
-        tree.insert(rootId, rootValue)
+        tree.insert(rootId, rootWeight)
         vertexSet = PQbinomialHeap()  # nodes to explore
-        vertexSet.insert(rootId, rootValue)
+        vertexSet.insert(rootId, rootWeight)
         markedNodes = [rootId]  # nodes already explored
 
         while vertexSet.lenght() > 0:  # while there are nodes to explore ...
