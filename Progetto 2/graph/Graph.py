@@ -281,27 +281,24 @@ class GraphBase(ABC):
             print("Root node not found")
             return None
 
-        tree = PQ_DHeap(d)
-        tree.insert(rootId, rootWeight)
         vertexSet = PQ_DHeap(d)  # nodes to explore
         vertexSet.insert(rootId, rootWeight)
         markedNodes = [rootId]  # nodes already explored
 
         while vertexSet.length > 0:  # while there are nodes to explore ...
-            treeNode = vertexSet.findMax()  # get an unexplored node
+            heapNode = vertexSet.findMax()  # get an unexplored node
             vertexSet.deleteMax()
-            adjacentNodes = self.getAdj(treeNode)
+            adjacentNodes = self.getAdj(heapNode)
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
                     value = node.value
                     adjacentValue = value
-                    tree.insert(nodeIndex, adjacentValue)
                     vertexSet.insert(nodeIndex, adjacentValue)
                     markedNodes.append(nodeIndex)  # mark as explored
 
         print(markedNodes)
-        return tree
+        return
 
     def binomialHeapPrioritySearch(self, rootId):
         """
@@ -315,27 +312,24 @@ class GraphBase(ABC):
             print("Root node not found")
             return None
 
-        tree = PQbinomialHeap()
-        tree.insert(rootId, rootWeight)
         vertexSet = PQbinomialHeap()  # nodes to explore
         vertexSet.insert(rootId, rootWeight)
         markedNodes = [rootId]  # nodes already explored
 
         while vertexSet.lenght() > 0:  # while there are nodes to explore ...
-            treeNode = vertexSet.findMax()  # get an unexplored node
+            heapNode = vertexSet.findMax()  # get an unexplored node
             vertexSet.deleteMax()
-            adjacentNodes = self.getAdj(treeNode)
+            adjacentNodes = self.getAdj(heapNode)
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
                     value = node.value
                     adjacentValue = value
-                    tree.insert(nodeIndex, adjacentValue)
                     vertexSet.insert(nodeIndex, adjacentValue)
                     markedNodes.append(nodeIndex)  # mark as explored
 
         print(markedNodes)
-        return tree
+        return
 
     def bfs(self, rootId):
         """
