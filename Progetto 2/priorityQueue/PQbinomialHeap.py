@@ -158,7 +158,7 @@ class PQbinomialHeap:
         return maxKeyIndex
 
     def findMax(self):
-        """Restituisce la radice dell'heap con chiave minima."""
+        """Restituisce la radice dell'heap con chiave massima."""
         if self.isEmpty():
             return None
         return self.heap[self.findMaxIndex()][0].root.elem

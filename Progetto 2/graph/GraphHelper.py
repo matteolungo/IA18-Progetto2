@@ -62,4 +62,4 @@ if __name__ == "__main__":
 
     print("\n5-Heap Search:"), graph.dHeapPrioritySearch(0, 5)
 
-    print("\nBinomial Heap Search:"), graph.binomialPrioritySearch(0)
+    print("\nBinomial Heap Search:"), graph.binomialHeapPrioritySearch(0)

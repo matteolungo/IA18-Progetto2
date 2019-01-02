@@ -33,7 +33,7 @@ def PQSearchPerformance(n, e):
     start = default_timer()
     graph = GraphHelper.buildGraph(n, e)
     blockPrint()
-    graph.binomialPrioritySearch(0)
+    graph.binomialHeapPrioritySearch(0)
     enablePrint()
     elapsed = default_timer() - start
     print(f"Tempo totale: {elapsed} s")
@@ -48,3 +48,4 @@ if __name__ == "__main__":
     print("\n-- 100 elementi, 100 archi --\n"), PQSearchPerformance(100, 100)
     print("-- 100 elementi, 1000 archi --\n"), PQSearchPerformance(100, 1000)
     print("\n-- 100 elementi, 10000 archi --\n"), PQSearchPerformance(100, 10000)
+    print("\n-- 100 elementi, 20000 archi --\n"), PQSearchPerformance(100, 20000)

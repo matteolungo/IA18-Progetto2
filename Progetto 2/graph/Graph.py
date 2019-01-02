@@ -6,7 +6,6 @@ from datastruct.Queue import CodaArrayList_deque as Queue
 from datastruct.Stack import PilaArrayList as Stack
 from priorityQueue.PQ_Dheap import *
 from priorityQueue.PQbinomialHeap import *
-from priorityQueue.PQbinaryHeap import *
 
 
 class Node:
@@ -304,7 +303,7 @@ class GraphBase(ABC):
         print(markedNodes)
         return tree
 
-    def binomialPrioritySearch(self, rootId):
+    def binomialHeapPrioritySearch(self, rootId):
         """
         Execute a search in the graph using a binomial heap, starting from the specified node.
         :param rootId: the root node ID (integer).
