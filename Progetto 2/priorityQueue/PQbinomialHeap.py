@@ -33,7 +33,7 @@ class BinomialHeap:
         thisRoot = self.root
         otherRoot = otherHeap.root
 
-        if thisRoot.key <= otherRoot.key:
+        if thisRoot.key >= otherRoot.key:
             otherRoot.father = thisRoot
             thisRoot.addSon(otherRoot)
             return self
@@ -107,7 +107,7 @@ class PQbinomialHeap:
                 self.heap[i][0] = None
                 self.heap[i][1] = None
 
-            # dal merge ho uttenuto un BinomialHeap Bi+1
+            # dal merge ho ottenuto un BinomialHeap Bi+1
             if self.heap[i + 1][0] == None:
                 self.heap[i + 1][0] = merged
             elif self.heap[i + 1][1] == None:
@@ -210,40 +210,40 @@ def main():
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.print()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 2.0
     k = 1.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.print()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 8.0
     k = 4.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.print()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 10.0
     k = 5.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.print()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 6.0
     k = 3.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.print()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     print("deleteMin()")
-    pq.deleteMin()
+    pq.deleteMax()
     pq.print()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 12.0
     k = 6.0
@@ -259,7 +259,7 @@ def main():
     pq.insert(e, k)
 
     print("deleteMin()")
-    pq.deleteMin()
+    pq.deleteMax()
     pq.print()
 
     e = 4.0

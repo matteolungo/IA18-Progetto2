@@ -30,7 +30,7 @@ class GraphHelper:
 
             nodes = []
             for i in range(num_nodes):
-                nodes.append(graph.addNode(randint(1, 100000), randint(1, 100000)))
+                nodes.append(graph.addNode(randint(1, 100000), randint(1, 100)))
 
             for i in range(len(nodes) - 1):
                 graph.insertEdge(i, randint(i + 1, len(nodes) - 1), randint(1, 10))
@@ -48,7 +48,7 @@ class GraphHelper:
 
 
 if __name__ == "__main__":
-    graph = GraphHelper.buildGraph(5, 5)
+    graph = GraphHelper.buildGraph(5, 10)
 
     graph.print()
 

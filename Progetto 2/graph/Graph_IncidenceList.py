@@ -90,7 +90,7 @@ class GraphIncidenceList(GraphBase):
         :return: the created edge, if created; None, otherwise.
         """
         # if tail and head exist, add the entry into the incidence list
-        if head in self.nodes and tail in self.nodes:  # TODO overwrite if edge already exists
+        if head in self.nodes and tail in self.nodes:
             self.inc[tail].addAsLast(Edge(tail, head, weight))
             self.inc[head].addAsLast(Edge(head, tail, weight))
 
@@ -194,7 +194,7 @@ class GraphIncidenceList(GraphBase):
         # else ...
         print("Incidence Lists:")
         for inc_item in self.inc.items():
-            print("{}:{}".format(inc_item[0], inc_item[1]))
+            print("{}:{}".format((inc_item[0],self.getNode(inc_item[0]).weight), inc_item[1]))
 
 
 if __name__ == "__main__":

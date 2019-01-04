@@ -21,7 +21,7 @@ class Node:
         """
         self.id = id
         self.value = value
-        self. weight = weight
+        self.weight = weight
 
     def __eq__(self, other):
         """
@@ -283,19 +283,19 @@ class GraphBase(ABC):
 
         vertexSet = PQ_DHeap(d)  # nodes to explore
         vertexSet.insert(rootId, rootWeight)
-        markedNodes = [rootId]  # nodes already explored
+        markedNodes = []  # nodes already explored
 
         while vertexSet.length > 0:  # while there are nodes to explore ...
             heapNode = vertexSet.findMax()  # get an unexplored node
             vertexSet.deleteMax()
+            if heapNode not in markedNodes:
+                markedNodes.append(heapNode)  # mark as explored
             adjacentNodes = self.getAdj(heapNode)
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
-                    value = node.value
-                    adjacentValue = value
-                    vertexSet.insert(nodeIndex, adjacentValue)
-                    markedNodes.append(nodeIndex)  # mark as explored
+                    weight = node.weight
+                    vertexSet.insert(nodeIndex, weight)
 
         print(markedNodes)
         return
@@ -319,14 +319,14 @@ class GraphBase(ABC):
         while vertexSet.lenght() > 0:  # while there are nodes to explore ...
             heapNode = vertexSet.findMax()  # get an unexplored node
             vertexSet.deleteMax()
+            if heapNode not in markedNodes:
+                markedNodes.append(heapNode)  # mark as explored
             adjacentNodes = self.getAdj(heapNode)
             for nodeIndex in adjacentNodes:
                 if nodeIndex not in markedNodes:  # if not explored ...
                     node = self.getNode(nodeIndex)
-                    value = node.value
-                    adjacentValue = value
-                    vertexSet.insert(nodeIndex, adjacentValue)
-                    markedNodes.append(nodeIndex)  # mark as explored
+                    weight = node.weight
+                    vertexSet.insert(nodeIndex, weight)
 
         print(markedNodes)
         return
