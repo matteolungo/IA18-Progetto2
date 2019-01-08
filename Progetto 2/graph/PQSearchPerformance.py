@@ -24,7 +24,7 @@ def PQSearchPerformance(n, e):
     start = default_timer()
     graph = GraphHelper.buildGraph(n, e)
     blockPrint()
-    graph.dHeapPrioritySearch(0, 10)
+    graph.dHeapPrioritySearch(0, 5)
     enablePrint()
     elapsed = default_timer() - start
     print(f"Tempo totale: {elapsed} s")
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     print("\n-- 1000 elementi, 1000 archi --\n"), PQSearchPerformance(1000, 1000)
     print("\n-- 10000 elementi, 10000 archi --\n"), PQSearchPerformance(10000, 10000)
 
-    print("\n-- 100 elementi, 100 archi --\n"), PQSearchPerformance(100, 100)
-    print("-- 100 elementi, 1000 archi --\n"), PQSearchPerformance(100, 1000)
-    print("\n-- 100 elementi, 10000 archi --\n"), PQSearchPerformance(100, 10000)
-    print("\n-- 100 elementi, 20000 archi --\n"), PQSearchPerformance(100, 20000)
+    print("\n-- 100 elementi, 200 archi --\n"), PQSearchPerformance(100, 200)
+    print("-- 100 elementi, 300 archi --\n"), PQSearchPerformance(100, 300)
+    print("\n-- 100 elementi, 400 archi --\n"), PQSearchPerformance(100, 400)
+    print("\n-- 100 elementi, 500 archi --\n"), PQSearchPerformance(100, 600)

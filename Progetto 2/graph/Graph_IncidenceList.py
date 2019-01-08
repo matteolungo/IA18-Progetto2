@@ -91,8 +91,11 @@ class GraphIncidenceList(GraphBase):
         """
         # if tail and head exist, add the entry into the incidence list
         if head in self.nodes and tail in self.nodes:
-            self.inc[tail].addAsLast(Edge(tail, head, weight))
-            self.inc[head].addAsLast(Edge(head, tail, weight))
+            edge = self.getEdge(tail, head)
+            if edge.__class__.__name__ != 'Edge':
+                self.inc[tail].addAsLast(Edge(tail, head, weight))
+                self.inc[head].addAsLast(Edge(head, tail, weight))
+
 
     def deleteEdge(self, tail, head):
         """

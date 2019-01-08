@@ -28,13 +28,18 @@ class GraphHelper:
         if num_edges >= num_nodes:
             graph = Graph()
 
+            if num_edges > (num_nodes * (num_nodes - 1)) / 2:
+                print("Numero di archi troppo elevato")
+                exit()
+
             nodes = []
             for i in range(num_nodes):
                 nodes.append(graph.addNode(randint(1, 100000), randint(1, 100)))
 
             for i in range(len(nodes) - 1):
                 graph.insertEdge(i, randint(i + 1, len(nodes) - 1), randint(1, 10))
-            graph.insertEdge(len(nodes) - 1, randint(0, len(nodes) - 2), randint(1, 10))
+            while graph.numEdges() < num_nodes:
+                graph.insertEdge(len(nodes) - 1, randint(0, len(nodes) - 2), randint(1, 10))
 
             while graph.numEdges() < (num_edges):
                 i = choice(graph.nodes).id
@@ -43,12 +48,13 @@ class GraphHelper:
                     graph.insertEdge(i, j, randint(1, 10))
 
             return graph
-        print("Numero di archi inferiore al numero di nodi")
-        return
 
+        elif num_edges < num_nodes:
+            print("Numero di archi inferiore al numero di nodi")
+            exit()
 
 if __name__ == "__main__":
-    graph = GraphHelper.buildGraph(5, 10)
+    graph = GraphHelper.buildGraph(5, 8)
 
     graph.print()
 
