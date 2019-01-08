@@ -48,4 +48,4 @@ if __name__ == "__main__":
     print("\n-- 100 elementi, 200 archi --\n"), PQSearchPerformance(100, 200)
     print("-- 100 elementi, 300 archi --\n"), PQSearchPerformance(100, 300)
     print("\n-- 100 elementi, 400 archi --\n"), PQSearchPerformance(100, 400)
-    print("\n-- 100 elementi, 500 archi --\n"), PQSearchPerformance(100, 600)
+    print("\n-- 100 elementi, 500 archi --\n"), PQSearchPerformance(100, 500)
